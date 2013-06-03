@@ -9,6 +9,7 @@
 -- Author: Ryan Kadwell <ryan@riaka.ca>
 --
 
+module RockPaperScissors where
 import Prelude hiding (cycle)
 
 data Move = Rock | Paper | Scissors

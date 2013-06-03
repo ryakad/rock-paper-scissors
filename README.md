@@ -14,6 +14,6 @@ Then you will need to select a strategy to play against.
 ```haskell
 play beatLast
 ```
-You then enter the letter of the move you want to make either r p or c. when
+You then enter the letter of the move you want to make either r p or s. when
 you are done playing either enter an invalid letter of just press enter and
 the tournament results will be displayed.

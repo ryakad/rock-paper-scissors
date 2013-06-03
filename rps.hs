@@ -39,6 +39,18 @@ cycle moves = case (length moves) `rem` 3 of
     1 -> Paper
     2 -> Scissors
 
+beat :: Move -> Move
+beat Paper = Scissors
+beat Rock = Paper
+beat Scissors = Rock
+
+-- If the user's last two moves are the same assume that they are playing
+-- a constant strategy and play to beat that. Requires a default strategy if 
+-- to play if the last two moves are not the same.
+beatLast :: Strategy
+beatLast [] = Rock
+beatLast (x : xs) = beat x
+
 play :: Strategy -> IO ()
 play strategy = playInteractive strategy ([], [])
 
@@ -50,7 +62,7 @@ playInteractive s t@(mine, yours) =
         then showResults t
         else do 
             let next = s yours
-            putStrLn ("\nI played " ++ show next ++ " and you played " ++ show (convertMove ch) ++ ".")
+            putStrLn ("\nComputer played " ++ show next ++ " and you played " ++ show (convertMove ch) ++ ".")
             tellSingleOutcome next (convertMove ch)
             let yourMove = convertMove ch
             playInteractive s (next:mine, yourMove:yours)
@@ -58,7 +70,7 @@ playInteractive s t@(mine, yours) =
 tellSingleOutcome :: Move -> Move -> IO ()
 tellSingleOutcome me you
     | result == 1 = putStrLn (show me ++ " wins.")
-    | result == (-1) = putStrLn (show you ++ " win.s")
+    | result == (-1) = putStrLn (show you ++ " win.")
     | otherwise = putStrLn "Draw"
     where result = outcome me you
 
@@ -69,7 +81,26 @@ convertMove x
     | x `elem` "Ss" = Scissors
 
 showResults :: Tournament -> IO ()
-showResults x 
+showResults (player1, player2) = do
+    putStrLn "Tournament Outcome\n=================="
+    printWinner (player1, player2)
+    putStrLn ("Total Games Played: " ++ show (tournamentLength (player1, player2)))
+    putStrLn ("Your Wins: " ++ show (totalWins player2 player1))
+    putStrLn ("Computer Wins: " ++ show (totalWins player1 player2))
+    putStrLn ("Draws: " ++ show (tournamentLength (player1, player2) - (totalWins player1 player2) - (totalWins player2 player1)))
+
+printWinner :: Tournament -> IO ()
+printWinner x
     | tournamentOutcome x < 0 = putStrLn "You win."
     | tournamentOutcome x == 0 = putStrLn "Draw."
-    | otherwise = putStrLn "I win."
+    | otherwise = putStrLn "Computer wins."
+
+tournamentLength :: Tournament -> Int
+tournamentLength (mine, _) = length mine
+
+totalWins :: [Move] -> [Move] -> Int
+totalWins [] _ = 0
+totalWins _ [] = 0
+totalWins (x:player1) (y:player2)
+    | outcome x y == 1 = 1 + totalWins player1 player2
+    | otherwise = totalWins player1 player2

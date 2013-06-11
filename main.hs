@@ -10,6 +10,10 @@
 --
 
 import RockPaperScissors
+import System.IO
+import GHC.IO.Handle
 
-main :: IO () 
-main = play beatLast
+main :: IO ()
+main = do
+    hSetBuffering stdin NoBuffering
+    play beatLast

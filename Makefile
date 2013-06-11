@@ -6,3 +6,6 @@ clean:
 	@rm *.hi
 	@rm *.o
 	@rm rps
+
+test:
+	@runhaskell Spec.hs

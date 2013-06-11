@@ -18,15 +18,15 @@ data Move = Rock | Paper | Scissors
 type Tournament = ([Move], [Move])
 type Strategy = [Move] -> Move
 
-outcome :: Move -> Move -> Integer
+outcome :: Move -> Move -> Int
 outcome Rock Scissors = 1
 outcome Scissors Paper = 1
 outcome Paper Rock = 1
-outcome a b 
+outcome a b
     | a == b = 0
     | otherwise = (-1)
 
-tournamentOutcome :: Tournament -> Integer
+tournamentOutcome :: Tournament -> Int
 tournamentOutcome (x, y) = sum (zipWith outcome x y)
 
 rock, paper, scissors :: Strategy
@@ -46,7 +46,7 @@ beat Rock = Paper
 beat Scissors = Rock
 
 -- If the user's last two moves are the same assume that they are playing
--- a constant strategy and play to beat that. Requires a default strategy if 
+-- a constant strategy and play to beat that. Requires a default strategy if
 -- to play if the last two moves are not the same.
 beatLast :: Strategy
 beatLast [] = Rock
@@ -56,12 +56,12 @@ play :: Strategy -> IO ()
 play strategy = playInteractive strategy ([], [])
 
 playInteractive :: Strategy -> Tournament -> IO ()
-playInteractive s t@(mine, yours) = 
-    do 
+playInteractive s t@(mine, yours) =
+    do
         ch <- getChar
         if not (ch `elem` "RPSrps")
         then showResults t
-        else do 
+        else do
             let next = s yours
             putStrLn ("\nComputer played " ++ show next ++ " and you played " ++ show (convertMove ch) ++ ".")
             tellSingleOutcome next (convertMove ch)

@@ -1,11 +1,11 @@
 install:
-	@ghc main.hs -o rps
+	@ghc main.hs -o play
 	@echo "Done."
 
 clean:
 	@rm *.hi
 	@rm *.o
-	@rm rps
+	@rm play
 
 test:
 	@runhaskell Spec.hs

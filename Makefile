@@ -1,5 +1,5 @@
 install:
-	@ghc main.hs -o play
+	@ghc Main.hs -o play
 	@echo "Done."
 
 clean:

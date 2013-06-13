@@ -9,6 +9,8 @@
 -- Author: Ryan Kadwell <ryan@riaka.ca>
 --
 
+module Main where
+
 import RockPaperScissors
 import System.IO
 import GHC.IO.Handle

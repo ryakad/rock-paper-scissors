@@ -32,7 +32,7 @@ main = hspec $ do
         it "beatlast knows what to play to beat paper" $ do
             beatLast [Paper, Rock, Scissors] `shouldBe` Scissors
 
-        it "beatlast knows what to play to beat paper" $ do
+        it "beatlast knows what to play to beat scissors" $ do
             beatLast [Scissors, Rock, Paper] `shouldBe` Rock
 
         it "converts r and R to Rock" $ do

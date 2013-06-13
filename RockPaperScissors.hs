@@ -11,6 +11,8 @@
 
 module RockPaperScissors where
 import Prelude hiding (cycle)
+import System.IO
+import GHC.IO.Handle
 
 data Move = Rock | Paper | Scissors
     deriving (Show, Eq)
@@ -58,21 +60,24 @@ play strategy = playInteractive strategy ([], [])
 playInteractive :: Strategy -> Tournament -> IO ()
 playInteractive s t@(mine, yours) =
     do
+        hSetBuffering stdout NoBuffering
+        putStr "choose your move: "
         ch <- getChar
         if not (ch `elem` "RPSrps")
         then showResults t
         else do
             let next = s yours
-            putStrLn ("\nComputer played " ++ show next ++ " and you played " ++ show (convertMove ch) ++ ".")
+            putStr "\n"
             tellSingleOutcome next (convertMove ch)
+            putStrLn (" - Computer played " ++ show next ++ " and you played " ++ show (convertMove ch) ++ ".")
             let yourMove = convertMove ch
             playInteractive s (next:mine, yourMove:yours)
 
 tellSingleOutcome :: Move -> Move -> IO ()
 tellSingleOutcome me you
-    | result == 1 = putStrLn (show me ++ " wins.")
-    | result == (-1) = putStrLn (show you ++ " win.")
-    | otherwise = putStrLn "Draw"
+    | result == 1 = putStr (show me ++ " wins.")
+    | result == (-1) = putStr (show you ++ " win.")
+    | otherwise = putStr "Draw"
     where result = outcome me you
 
 convertMove :: Char -> Move
@@ -83,10 +88,10 @@ convertMove x
 
 showResults :: Tournament -> IO ()
 showResults (player1, player2) = do
-    putStrLn "Tournament Outcome\n=================="
+    putStrLn "\nTournament Outcome\n=================="
     printWinner (player1, player2)
     putStrLn ("Total Games Played: " ++ show (tournamentLength (player1, player2)))
-    putStrLn ("Your Wins: " ++ show (totalWins player2 player1))
+    putStrLn ("You Win: " ++ show (totalWins player2 player1))
     putStrLn ("Computer Wins: " ++ show (totalWins player1 player2))
     putStrLn ("Draws: " ++ show (tournamentLength (player1, player2) - (totalWins player1 player2) - (totalWins player2 player1)))
 

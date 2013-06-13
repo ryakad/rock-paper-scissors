@@ -18,4 +18,10 @@ import GHC.IO.Handle
 main :: IO ()
 main = do
     hSetBuffering stdin NoBuffering
+    displayStartupMsg
     play beatLast
+
+displayStartupMsg :: IO ()
+displayStartupMsg = do
+    putStrLn "\nRock Paper Scissors"
+    putStrLn "To Play: enter r for Rock, p for Paper or s for Scissors\n"

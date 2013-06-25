@@ -1,6 +1,7 @@
-install:
+all: Main
+
+Main:
 	@ghc Main.hs -o play
-	@echo "Done."
 
 clean:
 	@rm *.hi

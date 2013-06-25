@@ -11,7 +11,7 @@ To Play
 Start by compiling
 ```bash
 cd rock-paper-scissors
-make install
+make
 ```
 Then execute the binary
 ```bash

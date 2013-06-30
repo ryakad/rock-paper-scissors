@@ -9,9 +9,9 @@
 -- Author: Ryan Kadwell <ryan@riaka.ca>
 --
 
-module Main where
+module Main (main) where
 
-import RockPaperScissors
+import RockPaperScissors (play, beatLast)
 import System.IO
 import GHC.IO.Handle
 

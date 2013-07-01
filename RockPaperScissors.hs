@@ -11,12 +11,15 @@
 
 module RockPaperScissors (
     play,
+    convertMove, -- exported for test suite
+    outcome, -- exported for test suite
     rock,
     paper,
     scissors,
     cycle,
     beat,
-    beatLast
+    beatLast,
+    Move (..)
     ) where
 
 import Prelude hiding (cycle)

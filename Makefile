@@ -1,7 +1,10 @@
 all: Main
 
-Main:
-	@ghc Main.hs -o play
+Main: RockPaperScissors
+	@ghc -c Main.hs -o play
+
+RockPaperScissors:
+	@ghc -c RockPaperScissors.hs
 
 clean:
 	@rm *.hi

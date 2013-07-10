@@ -11,7 +11,7 @@
 
 module Main (main) where
 
-import RockPaperScissors (play, beatLast, getRandomStrategy)
+import RockPaperScissors (play, getRandomStrategy)
 import System.IO
 import GHC.IO.Handle
 import System.Random

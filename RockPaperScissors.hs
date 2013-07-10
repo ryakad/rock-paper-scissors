@@ -9,7 +9,20 @@
 -- Author: Ryan Kadwell <ryan@riaka.ca>
 --
 
-module RockPaperScissors where
+module RockPaperScissors (
+    play,
+    convertMove, -- exported for test suite
+    outcome, -- exported for test suite
+    rock,
+    paper,
+    scissors,
+    cycle,
+    beat,
+    beatLast,
+    getRandomStrategy,
+    Move (..)
+    ) where
+
 import Prelude hiding (cycle)
 import System.IO
 import GHC.IO.Handle
@@ -48,7 +61,7 @@ beat Rock = Paper
 beat Scissors = Rock
 
 -- If the user's last two moves are the same assume that they are playing
--- a constant strategy and play to beat that. Requires a default strategy if
+-- a constant strategy and play to beat that. Requires a default strategy
 -- to play if the last two moves are not the same.
 beatLast :: Strategy
 beatLast [] = Rock

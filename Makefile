@@ -1,6 +1,4 @@
-all: Main
-
-Main:
+all:
 	@ghc Main.hs -o play
 
 clean:

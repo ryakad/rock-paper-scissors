@@ -54,6 +54,15 @@ beatLast :: Strategy
 beatLast [] = Rock
 beatLast (x : xs) = beat x
 
+-- Function for returning a random strategy when fed a random number
+getRandomStrategy :: Int -> Strategy
+getRandomStrategy x = case x of
+    1 -> paper
+    2 -> rock
+    3 -> scissors
+    4 -> cycle
+    5 -> beatLast
+
 play :: Strategy -> IO ()
 play strategy = playInteractive strategy ([], [])
 

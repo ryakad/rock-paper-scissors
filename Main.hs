@@ -14,12 +14,14 @@ module Main where
 import RockPaperScissors
 import System.IO
 import GHC.IO.Handle
+import System.Random
 
 main :: IO ()
 main = do
     hSetBuffering stdin NoBuffering
+    randNum <- getStdRandom (randomR (1, 5))
     displayStartupMsg
-    play beatLast
+    play $ getRandomStrategy randNum
 
 displayStartupMsg :: IO ()
 displayStartupMsg = do
